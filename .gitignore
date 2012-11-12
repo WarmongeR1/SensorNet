@@ -3,6 +3,16 @@
 *.lo
 *.o
 
+# settings
+*.user
+#
+
+# qt
+*.pro.user*
+# Vim
+*.*~
+*.md.*
+*.*.swp
 # Compiled Dynamic libraries
 *.so
 
