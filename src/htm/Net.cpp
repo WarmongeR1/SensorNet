@@ -120,6 +120,14 @@ void Net::FormSensorImages()
     for(uint n = 0; n < SENSOR_N; n++)
     {
         sensors[n].FormImage(outputDir, n);
+
+        // hind
+        QString t_path = outputDir.absoluteFilePath("synapse_" + QString("%1")
+                                                    .arg(n
+                                                         , 4
+                                                         , 10
+                                                         , QChar('0')) + ".png");
+        emit SIGNAL_ShowImage(&t_path);
     }
 }
 //------------------------------------------------------------------------------

@@ -27,14 +27,15 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 
     NetParams netParams(params);
 
-    Net net(netParams);
+//    Net net(netParams);
+    m_Net = new Net(netParams);
 
     for(uint i = 0; i < 20; i++)
-        net.Train(imageDataCreator.GetData());
+        m_Net->Train(imageDataCreator.GetData());
 
-    net.FormSensorImages();
+    m_Net->FormSensorImages();
 
-    net.Operate(imageDataCreator.GetData());
+    m_Net->Operate(imageDataCreator.GetData());
 
 
     //-----------
@@ -65,6 +66,8 @@ SensorNet::~SensorNet()
 void SensorNet::createConnects()
 {
     connect(ui.actionMenuQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QString*)), GUI_Canvas,
+            SLOT(setImage(QString*)));
 }
 //------------------------------------------------------------------------------
 void SensorNet::createGui()

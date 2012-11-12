@@ -23,6 +23,8 @@ private:
     RightPanel * GUI_RightPanel;
     Canvas * GUI_Canvas;
 
+    Net *m_Net;
+
     /**
      * @brief createConnects
      *

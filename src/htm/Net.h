@@ -8,8 +8,10 @@
 #include <QList>
 #include <QVector>
 
-class Net
+class Net : public QObject
 {
+    Q_OBJECT
+
 public:
     Net(NetParams netParams);
 
@@ -21,6 +23,9 @@ public:
 
     //const NetParams & GetParams() const;
     void FormSensorImages();
+
+signals:
+    void SIGNAL_ShowImage(QString*);
 
 private:
     void SupressNeighbours(Sensor * sensor);

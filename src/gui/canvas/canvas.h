@@ -17,10 +17,22 @@ public:
     explicit Canvas(QWidget *parent = 0);
     ~Canvas();
 
+public slots:
+    /**
+     * @brief setImage
+     * @param showedImage
+     */
     void setImage(QImage *showedImage);
+    /**
+     * @brief setImage
+     * @param PathToImage
+     */
     void setImage(QString *PathToImage);
 
 protected:
+    /**
+     * @brief paintEvent
+     */
     void paintEvent(QPaintEvent*);
 
 private:
