@@ -11,24 +11,24 @@
 class Net
 {
 public:
-	Net(NetParams netParams);
+    Net(NetParams netParams);
 
-	void SetInput(const DataSample & dataSample);
-	void Train(const QList<DataSample> & trainData);
-	void Step(const bool train);
+    void SetInput(const DataSample & dataSample);
+    void Train(const QList<DataSample> & trainData);
+    void Step(const bool train);
 
-	void Operate(const QList<DataSample> & testData);
+    void Operate(const QList<DataSample> & testData);
 
-	//const NetParams & GetParams() const;
-	void FormSensorImages();
+    //const NetParams & GetParams() const;
+    void FormSensorImages();
 
 private:
-	void SupressNeighbours(Sensor * sensor);
+    void SupressNeighbours(Sensor * sensor);
 
-	NetParams netParams;
+    NetParams netParams;
 
-	DataSample field;
-	QList<Sensor> sensors;
+    DataSample field;
+    QList<Sensor> sensors;
 };
 
 #endif

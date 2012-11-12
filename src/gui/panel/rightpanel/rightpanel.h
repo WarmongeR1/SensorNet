@@ -2,7 +2,7 @@
 #define RIGHTPANEL_H
 
 #include <QDockWidget>
-#include <QDesktopWidget> /// moved to center
+#include <QDesktopWidget> // moved gui to center
 
 namespace Ui {
 class RightPanel;

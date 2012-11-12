@@ -5,6 +5,9 @@
 #include "ui_MainWindow.h"
 
 #include "src/gui/panel/rightpanel/rightpanel.h"
+#include "src/gui/canvas/canvas.h"
+
+class Net;
 
 class SensorNet : public QMainWindow
 {
@@ -18,6 +21,7 @@ private:
     Ui::SensorNetClass ui;
 
     RightPanel * GUI_RightPanel;
+    Canvas * GUI_Canvas;
 
     /**
      * @brief createConnects

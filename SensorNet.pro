@@ -26,10 +26,12 @@ HEADERS += src/common/Random.h \
            src/htm/Synapse.h \
            src/main/MainWindow.h \
            src/options/Options.h \
-    src/gui/panel/rightpanel/rightpanel.h
+    src/gui/panel/rightpanel/rightpanel.h \
+    src/gui/canvas/canvas.h
 
 FORMS += src/main/MainWindow.ui \
-    src/gui/panel/rightpanel/rightpanel.ui
+    src/gui/panel/rightpanel/rightpanel.ui \
+    src/gui/canvas/canvas.ui
 
 SOURCES += src/common/Random.cpp \
            src/dataCreater/ImageDataCreator.cpp \
@@ -40,6 +42,7 @@ SOURCES += src/common/Random.cpp \
            src/htm/Synapse.cpp \
            src/main/main.cpp \
            src/main/MainWindow.cpp \
-    src/gui/panel/rightpanel/rightpanel.cpp
+    src/gui/panel/rightpanel/rightpanel.cpp \
+    src/gui/canvas/canvas.cpp
 
 RESOURCES += resources/resources.qrc

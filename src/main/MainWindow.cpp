@@ -1,10 +1,9 @@
 
 
 #include "MainWindow.h"
-
-
 #include "Net.h"
 #include "ImageDataCreator.h"
+
 
 SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags)
@@ -58,7 +57,9 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 //------------------------------------------------------------------------------
 SensorNet::~SensorNet()
 {
-
+    GUI_RightPanel->deleteLater();
+    GUI_Canvas->deleteLater();
+    delete this;
 }
 //------------------------------------------------------------------------------
 void SensorNet::createConnects()
@@ -69,6 +70,8 @@ void SensorNet::createConnects()
 void SensorNet::createGui()
 {
     // create central widget
+    GUI_Canvas = new Canvas(this);
+    setCentralWidget(GUI_Canvas);
 
     // create panels
     GUI_RightPanel = new RightPanel(this);
