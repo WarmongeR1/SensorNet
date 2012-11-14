@@ -3,38 +3,53 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET =
+TARGET      = SensorNet
+TEMPLATE    = app
+DESTDIR     = build/bin
+OBJECTS_DIR = build/obj
+MOC_DIR     = build/moc
+RCC_DIR     = build/rc
+UI_DIR      = build/ui
+
+
 DEPENDPATH += . \
               resources \
               src/common \
-              src/dataCreater \
+              src/data/ \
+              src/data/creater \
               src/debug \
               src/htm \
               src/main \
               src/options
 
-INCLUDEPATH += . src/common src/dataCreater src/htm src/options src/main
+INCLUDEPATH += . \
+            src/common \
+            src/data/creater \
+            src/data \
+            src/htm  \
+            src/options \
+            src/main
 
 # Input
 HEADERS += src/common/Random.h \
-           src/dataCreater/ImageDataCreator.h \
+           src/data/creater/ImageDataCreator.h \
+           src/data/DataSample.h \
            src/debug/debughelper.h \
-           src/htm/DataSample.h \
            src/htm/Net.h \
            src/htm/NetParams.h \
            src/htm/Sensor.h \
            src/htm/Synapse.h \
            src/main/MainWindow.h \
            src/options/Options.h \
-    src/gui/panel/rightpanel/rightpanel.h \
-    src/gui/canvas/canvas.h
+            src/gui/panel/rightpanel/rightpanel.h \
+            src/gui/canvas/canvas.h
 
 FORMS += src/main/MainWindow.ui \
     src/gui/panel/rightpanel/rightpanel.ui \
     src/gui/canvas/canvas.ui
 
 SOURCES += src/common/Random.cpp \
-           src/dataCreater/ImageDataCreator.cpp \
+           src/data/creater/ImageDataCreator.cpp \
            src/debug/debughelper.cpp \
            src/htm/Net.cpp \
            src/htm/NetParams.cpp \

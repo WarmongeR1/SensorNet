@@ -14,17 +14,17 @@
    <string>DockWidget</string>
   </property>
   <widget class="QWidget" name="dockWidgetContents">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pBNextImage">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>90</y>
+      <x>30</x>
+      <y>100</y>
       <width>83</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Next image</string>
     </property>
    </widget>
   </widget>

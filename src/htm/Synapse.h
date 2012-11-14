@@ -10,23 +10,27 @@ class Sensor;
 class Synapse
 {
 public:
-    Synapse(Sensor * parent, const NetParams * netParams, DataSample & field_, int x, int y);
+    Synapse(Sensor * parent
+            , const NetParams * netParams
+            , DataSample & field_
+            , int x
+            , int y);
 
-	void IncreasePermanence();
-	void DecreasePermanence();
-	void DeadIncreasePermanence();
+    void IncreasePermanence();
+    void DecreasePermanence();
+    void DeadIncreasePermanence();
 
-	int GetSignal() const;
-	int GetFieldSignal() const;
+    int GetSignal() const;
+    int GetFieldSignal() const;
 
     int x, y;
-	int activeCoeff;
+    int activeCoeff;
 
-	double GetP() const;
+    double GetP() const;
 
 private:
-	double p;
-	const Sensor * parent;
+    double p;
+    const Sensor * parent;
     const NetParams * netParams;
     int * field;
 };

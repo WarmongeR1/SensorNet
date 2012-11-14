@@ -16,6 +16,9 @@ public:
     explicit RightPanel(QWidget *parent = 0);
     ~RightPanel();
 
+signals:
+    void SIGNAL_GetNextImage();
+
 private:
     Ui::RightPanel *ui;
 

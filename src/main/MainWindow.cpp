@@ -15,13 +15,13 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 
     NetParamsInitializer params;
     params.ActivePermanence = 0.4;
-    params.ActiveSensorPercent = 0.1;
+    params.ActiveSensorPercent = 0.05;
     params.ActiveSynapseStartPercent = 0.5;
     params.DeadPermanenceIncrease = 0.01;
     params.DeadSensorBoost = 10.0;
     params.PermanenceDecrease = 0.015;
     params.PermanenceIncrease = 0.015;
-    params.SensorBoost = 1.2;
+    params.SensorBoost = 1.001;
     params.SensorInhibitionPercent = 0.8;
     params.TrivialPatternTreshold = 5;
 
@@ -30,19 +30,25 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 //    Net net(netParams);
     m_Net = new Net(netParams);
 
+
+    createGui();
+    createConnects();
+
     for(uint i = 0; i < 20; i++)
+    {
         m_Net->Train(imageDataCreator.GetData());
+    }
 
     m_Net->FormSensorImages();
 
+    imageDataCreator.CreateImageData("testdata");
     m_Net->Operate(imageDataCreator.GetData());
 
 
     //-----------
     // gui
 
-    createGui();
-    createConnects();
+
 
 
     // moved to center desktop
@@ -66,8 +72,10 @@ SensorNet::~SensorNet()
 void SensorNet::createConnects()
 {
     connect(ui.actionMenuQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QString*)), GUI_Canvas,
-            SLOT(setImage(QString*)));
+//    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QString*)), GUI_Canvas,
+//            SLOT(setImage(QString*)));
+//    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QImage*)), GUI_Canvas, SLOT(setImage(QImage*)));
+//    connect(GUI_RightPanel, SIGNAL(SIGNAL_GetNextImage()), m_Net, SLOT(FormNextSensorImage()));
 }
 //------------------------------------------------------------------------------
 void SensorNet::createGui()
@@ -78,6 +86,7 @@ void SensorNet::createGui()
 
     // create panels
     GUI_RightPanel = new RightPanel(this);
+    GUI_RightPanel->setMinimumWidth(250);
     addDockWidget(Qt::RightDockWidgetArea, GUI_RightPanel);
 }
 //------------------------------------------------------------------------------
