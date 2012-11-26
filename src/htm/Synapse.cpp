@@ -12,16 +12,25 @@ Synapse::Synapse(Sensor * parent_
     , x(x_)
     , y(y_)
 {
-    if(Random::Chance(netParams->ACTIVE_SYNAPSE_START_PERCENT))
-    {
-        p = netParams->ACTIVE_PERMANENCE;
-        activeCoeff = 1;
-    }
-    else
-    {
-        p = 0.0;
+//    if(Random::Chance(netParams->ACTIVE_SYNAPSE_START_PERCENT))
+//    {
+//        p = netParams->ACTIVE_PERMANENCE;
+//        activeCoeff = 1;
+//    }
+//    else
+//    {
+//        p = 0.0;
+//        activeCoeff = 0;
+//    }
+}
+
+void Synapse::SetPermanence(double value)
+{
+    p = value;
+    if(p < netParams->ACTIVE_PERMANENCE)
         activeCoeff = 0;
-    }
+    else
+        activeCoeff = 1;
 }
 
 void Synapse::IncreasePermanence()

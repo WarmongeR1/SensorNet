@@ -20,6 +20,8 @@ public:
     void DecreasePermanence();
     void DeadIncreasePermanence();
 
+    void SetPermanence(double value);
+
     int GetSignal() const;
     int GetFieldSignal() const;
 
@@ -32,7 +34,7 @@ private:
     double p;
     const Sensor * parent;
     const NetParams * netParams;
-    int * field;
+    const int * field;
 };
 
 #endif

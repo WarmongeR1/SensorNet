@@ -20,7 +20,8 @@ DEPENDPATH += . \
               src/debug \
               src/htm \
               src/main \
-              src/options
+              src/options \
+              src/genom
 
 INCLUDEPATH += . \
             src/common \
@@ -28,7 +29,8 @@ INCLUDEPATH += . \
             src/data \
             src/htm  \
             src/options \
-            src/main
+            src/main \
+            src/genom
 
 # Input
 HEADERS += src/common/Random.h \
@@ -41,8 +43,9 @@ HEADERS += src/common/Random.h \
            src/htm/Synapse.h \
            src/main/MainWindow.h \
            src/options/Options.h \
-            src/gui/panel/rightpanel/rightpanel.h \
-            src/gui/canvas/canvas.h
+           src/gui/panel/rightpanel/rightpanel.h \
+           src/gui/canvas/canvas.h \
+           src/genom/GenomOperator.h
 
 FORMS += src/main/MainWindow.ui \
     src/gui/panel/rightpanel/rightpanel.ui \
@@ -57,7 +60,8 @@ SOURCES += src/common/Random.cpp \
            src/htm/Synapse.cpp \
            src/main/main.cpp \
            src/main/MainWindow.cpp \
-    src/gui/panel/rightpanel/rightpanel.cpp \
-    src/gui/canvas/canvas.cpp
+           src/gui/panel/rightpanel/rightpanel.cpp \
+           src/gui/canvas/canvas.cpp \
+           src/genom/GenomOperator.cpp
 
 RESOURCES += resources/resources.qrc

@@ -6,8 +6,10 @@
 
 #include "src/gui/panel/rightpanel/rightpanel.h"
 #include "src/gui/canvas/canvas.h"
+#include "ImageDataCreator.h"
 
 class Net;
+class ImageDataCreator;
 
 class SensorNet : public QMainWindow
 {
@@ -17,13 +19,19 @@ public:
     SensorNet(QWidget *parent = 0, Qt::WFlags flags = 0);
     ~SensorNet();
 
+private slots:
+    void showImages();
+
 private:
     Ui::SensorNetClass ui;
 
     RightPanel * GUI_RightPanel;
     Canvas * GUI_Canvas;
 
+    ImageDataCreator imageDataCreator;
+
     Net *m_Net;
+    int t_count;
 
     /**
      * @brief createConnects

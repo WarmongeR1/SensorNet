@@ -2,7 +2,7 @@
 
 #include "MainWindow.h"
 #include "Net.h"
-#include "ImageDataCreator.h"
+#include "src/debug/debughelper.h"
 
 
 SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
@@ -10,12 +10,13 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 {
     ui.setupUi(this);
 
-    ImageDataCreator imageDataCreator;
+
+//    ImageDataCreator imageDataCreator;
     imageDataCreator.CreateImageData("traindata");
 
     NetParamsInitializer params;
     params.ActivePermanence = 0.4;
-    params.ActiveSensorPercent = 0.05;
+    params.ActiveSensorPercent = 0.1;
     params.ActiveSynapseStartPercent = 0.5;
     params.DeadPermanenceIncrease = 0.01;
     params.DeadSensorBoost = 10.0;
@@ -26,24 +27,18 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
     params.TrivialPatternTreshold = 5;
 
     NetParams netParams(params);
+    m_Net = new Net(netParams, false);
+    m_Net->Train(imageDataCreator.GetData(), 100);
+    m_Net->FormSensorImages();
 
-//    Net net(netParams);
-    m_Net = new Net(netParams);
-
-
+    t_count = 0;
     createGui();
     createConnects();
-
-    for(uint i = 0; i < 20; i++)
-    {
-        m_Net->Train(imageDataCreator.GetData());
-    }
-
-    m_Net->FormSensorImages();
 
     imageDataCreator.CreateImageData("testdata");
     m_Net->Operate(imageDataCreator.GetData());
 
+    m_Net->PrintResults();
 
     //-----------
     // gui
@@ -72,10 +67,11 @@ SensorNet::~SensorNet()
 void SensorNet::createConnects()
 {
     connect(ui.actionMenuQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
-//    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QString*)), GUI_Canvas,
-//            SLOT(setImage(QString*)));
-//    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QImage*)), GUI_Canvas, SLOT(setImage(QImage*)));
-//    connect(GUI_RightPanel, SIGNAL(SIGNAL_GetNextImage()), m_Net, SLOT(FormNextSensorImage()));
+    //    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QString*)), GUI_Canvas,
+    //            SLOT(setImage(QString*)));
+    //    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QImage*)), GUI_Canvas, SLOT(setImage(QImage*)));
+    //    connect(GUI_RightPanel, SIGNAL(SIGNAL_GetNextImage()), m_Net, SLOT(FormNextSensorImage()));
+    connect(GUI_RightPanel, SIGNAL(SIGNAL_GetNextImage()), SLOT(showImages()));
 }
 //------------------------------------------------------------------------------
 void SensorNet::createGui()
@@ -88,5 +84,18 @@ void SensorNet::createGui()
     GUI_RightPanel = new RightPanel(this);
     GUI_RightPanel->setMinimumWidth(250);
     addDockWidget(Qt::RightDockWidgetArea, GUI_RightPanel);
+}
+//------------------------------------------------------------------------------
+void SensorNet::showImages()
+{
+
+//    t_count++;
+//    for(uint i = 0; i < 20; i++)
+//    {
+//        m_Net->Train(imageDataCreator.GetData());
+//        m_Net->FormSensorImages();
+//        myDebug() << "click" << t_count;
+//    }
+
 }
 //------------------------------------------------------------------------------

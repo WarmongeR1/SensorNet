@@ -14,17 +14,22 @@ Sensor::Sensor(const NetParams * netParams_, DataSample & field) : netParams(net
     int centerY = Random::Range(9, 23);
     int radius = 9 + Random::Range(10);
 
+    int minX = qMax(0, centerX - radius);
+    int maxX = qMin(FIELD_X - 1, centerX + radius);
+    int minY = qMax(0, centerY - radius);
+    int maxY = qMin(FIELD_Y - 1, centerY + radius);
+
+    for(uint i = minY; i <= maxY; i++)
+        for(uint j = minX; j <= maxX; j++)
+            synapses << Synapse(this, netParams, field, j, i);
+
     QVector<QVector<int> > occupiedCells(FIELD_Y, QVector<int>(FIELD_X, 0));
 
-    for(int i = 0; i < SENSOR_SYNAPSE_N; i++)
+    for(uint i = 0; i < SENSOR_START_ACTIVE_SYNAPSE_N; i++)
     {
         int x, y;
         do
         {
-            int minX = qMax(0, centerX - radius);
-            int maxX = qMin(FIELD_X - 1, centerX + radius);
-            int minY = qMax(0, centerY - radius);
-            int maxY = qMin(FIELD_Y - 1, centerY + radius);
             x = Random::Range(minX, maxX);
             y = Random::Range(minY, maxY);
         }
@@ -32,7 +37,15 @@ Sensor::Sensor(const NetParams * netParams_, DataSample & field) : netParams(net
 
         occupiedCells[y][x] = 1;
 
-        synapses << Synapse(this, netParams, field, x, y);
+        //synapses << Synapse(this, netParams, field, x, y);
+    }
+
+    for(uint n = 0; n < synapses.size(); n++)
+    {
+        if(occupiedCells[synapses[n].y][synapses[n].x])
+            synapses[n].SetPermanence(netParams->ACTIVE_PERMANENCE);
+        else
+            synapses[n].SetPermanence(0);
     }
 
     UpdatePosition();
@@ -55,13 +68,23 @@ void Sensor::UpdateSignal()
 {
     signal = 0.0;
 
-    for(int i = 0; i < SENSOR_SYNAPSE_N; i++)
+    for(uint i = 0; i < synapses.size(); i++)
         signal += synapses[i].GetSignal();
 
     if(signal < netParams->TRIVIAL_PATTERN_THRESHOLD)
         signal = 0.0;
 
     signal *= boost;
+}
+//------------------------------------------------------------------------------
+void Sensor::NormTypesTable()
+{
+    double sum = 0.0;
+    for(int n = 0; n < TYPES_N; n++)
+        sum += typesTable[n];
+
+    for(int n = 0; n < TYPES_N; n++)
+        typesTable[n] /= sum;
 }
 //------------------------------------------------------------------------------
 double Sensor::GetSignal() const
@@ -78,7 +101,7 @@ void Sensor::GetPosition(int & x_, int & y_, int & r2_) const
 //------------------------------------------------------------------------------
 void Sensor::UpdateAsWinner(double currentActiveSensorPercent)
 {
-    for(int i = 0; i < SENSOR_SYNAPSE_N; i++)
+    for(uint i = 0; i < synapses.size(); i++)
         if(synapses[i].GetFieldSignal())
             synapses[i].IncreasePermanence();
         else
@@ -94,7 +117,7 @@ void Sensor::UpdateAsWinner(double currentActiveSensorPercent)
 void Sensor::UpdateAsLooser()
 {
     if(boost >= netParams->DEAD_SENSOR_BOOST)
-        for(int i = 0; i < SENSOR_SYNAPSE_N; i++)
+        for(uint i = 0; i < synapses.size(); i++)
             synapses[i].DeadIncreasePermanence();
 
     boost *= netParams->SENSOR_BOOST;
@@ -109,7 +132,7 @@ void Sensor::UpdatePosition()
     int sumX = 0;
     int sumY = 0;
     int activeSynapsesN = 0;
-    for(int i = 0; i < SENSOR_SYNAPSE_N; i++)
+    for(uint i = 0; i < synapses.size(); i++)
     {
         if(synapses[i].activeCoeff)
         {
@@ -126,7 +149,7 @@ void Sensor::UpdatePosition()
         y = sumY / (double)activeSynapsesN + 0.5;
 
         int sumR = 0;
-        for(int i = 0; i < activeSynapses.size(); i++)
+        for(uint i = 0; i < activeSynapses.size(); i++)
             sumR += ((*activeSynapses[i]).x - x) * ((*activeSynapses[i]).x - x) + ((*activeSynapses[i]).y - y) * ((*activeSynapses[i]).y - y);
 
         r2 = sumR / activeSynapsesN + 0.5;
@@ -152,7 +175,7 @@ void Sensor::FormImage(QDir dir, int sensorId)
     QImage sensorImage(FIELD_X, FIELD_Y, QImage::Format_RGB32);
     sensorImage.fill(Qt::white);
 
-    for(uint i = 0; i < SENSOR_SYNAPSE_N; i++)
+    for(uint i = 0; i < synapses.size(); i++)
     {
         int pColour = (1.0 - synapses[i].GetP()) * 250;
         QColor colour;
@@ -161,7 +184,8 @@ void Sensor::FormImage(QDir dir, int sensorId)
         //else
             //colour = QColor(pColour, 255, 255);
         colour = QColor(pColour, pColour, pColour);
-        sensorImage.setPixel(synapses[i].x, synapses[i].y, colour.rgb());
+        // swap x and y for Alexander
+        sensorImage.setPixel(synapses[i].y, synapses[i].x, colour.rgb());
     }
 
     sensorImage.save(dir.absoluteFilePath("sensor_" + QString("%1").arg(sensorId, 4, 10, QChar('0')) + ".png"));

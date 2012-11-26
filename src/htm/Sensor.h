@@ -34,6 +34,7 @@ public:
     void FormImage(QDir dir, int sensorId);
 
     void IncreaseTypeCount(int type);
+    void NormTypesTable();
 
     const double * GetTypesTable() const;
 

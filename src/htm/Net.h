@@ -27,10 +27,10 @@ class Net : public QObject
     Q_OBJECT
 
 public:
-    Net(NetParams netParams);
+    Net(NetParams netParams, bool silentMode);
 
     void SetInput(const DataSample & dataSample);
-    void Train(const QList<DataSample> & trainData);
+    void Train(const QList<DataSample> & trainData, int cyclesToRepeat);
     void Step(const bool train, int sampleType);
 
     void Operate(const QList<DataSample> & testData);
@@ -39,6 +39,10 @@ public:
     void FormSensorImages();
 
     void PrintResults();
+    void FindResult();
+    double GetResult() const;
+
+    const NetParams & GetParams() const;
 
 public slots:
 //    QImage FormNextSensorImage();
@@ -46,6 +50,9 @@ public slots:
 signals:
     void SIGNAL_ShowImage(QString*);
     void SIGNAL_ShowImage(QImage*);
+
+    void TrainProgress(int value);
+    void TestProgress(int value);
 
 private:
     void SupressNeighbours(Sensor * sensor);
@@ -57,7 +64,12 @@ private:
     DataSample field;
     QList<Sensor> sensors;
 
+    bool silentMode;
+
     QList<Result> results;
+    QList<Result> saccadeResults;
+
+    double result;
 };
 
 #endif
