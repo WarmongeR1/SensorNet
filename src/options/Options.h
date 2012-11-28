@@ -4,7 +4,7 @@
 const int FIELD_X = 32;
 const int FIELD_Y = 32;
 
-const int SENSOR_N = 10;
+const int SENSOR_N = 50;
 
 //const int SENSOR_SYNAPSE_N = 250;
 const int SENSOR_START_ACTIVE_SYNAPSE_N = 250;

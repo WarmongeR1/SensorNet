@@ -136,8 +136,8 @@ void Sensor::UpdatePosition()
     {
         if(synapses[i].activeCoeff)
         {
-            sumX += synapses[i].x;
-            sumY += synapses[i].y;
+            sumX += synapses[i].y;
+            sumY += synapses[i].x;
             activeSynapsesN++;
             activeSynapses << &synapses[i];
         }
@@ -150,7 +150,8 @@ void Sensor::UpdatePosition()
 
         int sumR = 0;
         for(uint i = 0; i < activeSynapses.size(); i++)
-            sumR += ((*activeSynapses[i]).x - x) * ((*activeSynapses[i]).x - x) + ((*activeSynapses[i]).y - y) * ((*activeSynapses[i]).y - y);
+            sumR += ((*activeSynapses[i]).y - y) * ((*activeSynapses[i]).y - y) +
+                    ((*activeSynapses[i]).x - x) * ((*activeSynapses[i]).x - x);
 
         r2 = sumR / activeSynapsesN + 0.5;
     }

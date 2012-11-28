@@ -17,8 +17,13 @@ public:
     ~RightPanel();
 
 signals:
-    void SIGNAL_GetNextImage();
+//    void SIGNAL_GetNextImage();
+    void SIGNAL_ShowImages();
+    void SIGNAL_RunNet(int);
+    void SIGNAL_GenerateImages();
 
+private slots:
+    void runNet();
 private:
     Ui::RightPanel *ui;
 

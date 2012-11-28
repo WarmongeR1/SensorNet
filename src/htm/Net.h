@@ -30,7 +30,8 @@ public:
     Net(NetParams netParams, bool silentMode);
 
     void SetInput(const DataSample & dataSample);
-    void Train(const QList<DataSample> & trainData, int cyclesToRepeat);
+    void Train(const QList<DataSample> & trainData, int cyclesToRepeat
+               , bool showImages=false);
     void Step(const bool train, int sampleType);
 
     void Operate(const QList<DataSample> & testData);
@@ -48,8 +49,9 @@ public slots:
 //    QImage FormNextSensorImage();
 
 signals:
-    void SIGNAL_ShowImage(QString*);
-    void SIGNAL_ShowImage(QImage*);
+//    void SIGNAL_ShowImage(QString*);
+//    void SIGNAL_ShowImage(QImage*);
+    void SIGNAL_ShowImages();
 
     void TrainProgress(int value);
     void TestProgress(int value);

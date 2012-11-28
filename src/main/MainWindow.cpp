@@ -11,7 +11,7 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
     ui.setupUi(this);
 
 
-//    ImageDataCreator imageDataCreator;
+    //    ImageDataCreator imageDataCreator;
     imageDataCreator.CreateImageData("traindata");
 
     NetParamsInitializer params;
@@ -28,17 +28,19 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 
     NetParams netParams(params);
     m_Net = new Net(netParams, false);
-    m_Net->Train(imageDataCreator.GetData(), 100);
-    m_Net->FormSensorImages();
+//    m_Net->Train(imageDataCreator.GetData(), 100);
+//    m_Net->FormSensorImages();
+
+    myDebug() << m_Net;
 
     t_count = 0;
     createGui();
     createConnects();
 
-    imageDataCreator.CreateImageData("testdata");
-    m_Net->Operate(imageDataCreator.GetData());
+    //    imageDataCreator.CreateImageData("testdata");
+    //    m_Net->Operate(imageDataCreator.GetData());
 
-    m_Net->PrintResults();
+    //    m_Net->PrintResults();
 
     //-----------
     // gui
@@ -71,7 +73,12 @@ void SensorNet::createConnects()
     //            SLOT(setImage(QString*)));
     //    connect(m_Net, SIGNAL(SIGNAL_ShowImage(QImage*)), GUI_Canvas, SLOT(setImage(QImage*)));
     //    connect(GUI_RightPanel, SIGNAL(SIGNAL_GetNextImage()), m_Net, SLOT(FormNextSensorImage()));
-    connect(GUI_RightPanel, SIGNAL(SIGNAL_GetNextImage()), SLOT(showImages()));
+    connect(GUI_RightPanel, SIGNAL(SIGNAL_ShowImages()), SLOT(showImages()));
+    connect(GUI_RightPanel, SIGNAL(SIGNAL_RunNet(int)), SLOT(runNet(int)));
+    connect(GUI_RightPanel, SIGNAL(SIGNAL_GenerateImages()), SLOT(generateImages()));
+
+
+
 }
 //------------------------------------------------------------------------------
 void SensorNet::createGui()
@@ -86,16 +93,82 @@ void SensorNet::createGui()
     addDockWidget(Qt::RightDockWidgetArea, GUI_RightPanel);
 }
 //------------------------------------------------------------------------------
-void SensorNet::showImages()
+void SensorNet::runNet(int m_for)
 {
 
-//    t_count++;
-//    for(uint i = 0; i < 20; i++)
-//    {
-//        m_Net->Train(imageDataCreator.GetData());
-//        m_Net->FormSensorImages();
-//        myDebug() << "click" << t_count;
-//    }
+    //    t_count++;
+    //    for(uint i = 0; i < 20; i++)
+    //    {
+    //        m_Net->Train(imageDataCreator.GetData());
+    //        m_Net->FormSensorImages();
+    //        myDebug() << "click" << t_count;
+    //    }
 
+
+
+    //    ImageDataCreator imageDataCreator;
+    imageDataCreator.CreateImageData("traindata");
+
+    NetParamsInitializer params;
+    params.ActivePermanence = 0.4;
+    params.ActiveSensorPercent = 0.1;
+    params.ActiveSynapseStartPercent = 0.5;
+    params.DeadPermanenceIncrease = 0.01;
+    params.DeadSensorBoost = 10.0;
+    params.PermanenceDecrease = 0.015;
+    params.PermanenceIncrease = 0.015;
+    params.SensorBoost = 1.001;
+    params.SensorInhibitionPercent = 0.8;
+    params.TrivialPatternTreshold = 5;
+
+    NetParams netParams(params);
+    m_Net = new Net(netParams, false);
+
+    connect(m_Net, SIGNAL(SIGNAL_ShowImages()), SLOT(showImages()));
+//    m_Net->Train(imageDataCreator.GetData(), 100);
+
+
+//    myDebug() << m_Net;
+
+
+    //    m_Net = new Net(netParams, false);
+        m_Net->Train(imageDataCreator.GetData(), m_for, true);
+//    m_Net->Train(imageDataCreator.GetData(), m_for);
+//    m_Net->FormSensorImages();
+}
+//------------------------------------------------------------------------------
+void SensorNet::generateImages()
+{
+    //    myDebug() << "generate images";
+    //    imageDataCreator.CreateImageData("testdata");
+    //    m_Net->Operate(imageDataCreator.GetData());
+
+
+
+//        ImageDataCreator imageDataCreator;
+//    imageDataCreator.CreateImageData("traindata");
+
+//    NetParamsInitializer params;
+//    params.ActivePermanence = 0.4;
+//    params.ActiveSensorPercent = 0.1;
+//    params.ActiveSynapseStartPercent = 0.5;
+//    params.DeadPermanenceIncrease = 0.01;
+//    params.DeadSensorBoost = 10.0;
+//    params.PermanenceDecrease = 0.015;
+//    params.PermanenceIncrease = 0.015;
+//    params.SensorBoost = 1.001;
+//    params.SensorInhibitionPercent = 0.8;
+//    params.TrivialPatternTreshold = 5;
+
+//    NetParams netParams(params);
+//    m_Net = new Net(netParams, false);
+    m_Net->FormSensorImages();
+    //    m_Net->PrintResults();
+}
+//------------------------------------------------------------------------------
+void SensorNet::showImages()
+{
+//        myDebug() << " show images";
+    GUI_Canvas->showImages();
 }
 //------------------------------------------------------------------------------

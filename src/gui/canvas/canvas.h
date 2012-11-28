@@ -17,6 +17,8 @@ public:
     explicit Canvas(QWidget *parent = 0);
     ~Canvas();
 
+
+    void showImages();
 public slots:
     /**
      * @brief setImage

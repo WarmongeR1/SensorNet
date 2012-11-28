@@ -22,6 +22,9 @@ public:
 private slots:
     void showImages();
 
+    void generateImages();
+    void runNet(int);
+
 private:
     Ui::SensorNetClass ui;
 

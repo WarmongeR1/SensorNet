@@ -13,4 +13,5 @@ NetParams::NetParams(NetParamsInitializer & from) :
     SENSOR_BOOST(from.SensorBoost),
     DEAD_SENSOR_BOOST(from.DeadSensorBoost)
 {
+
 }

@@ -26,7 +26,8 @@ void Net::SetInput(const DataSample & dataSample)
             field.data[i][j] = dataSample.data[i][j];
 }
 //------------------------------------------------------------------------------
-void Net::Train(const QList<DataSample> & trainData, int cyclesToRepeat)
+void Net::Train(const QList<DataSample> & trainData, int cyclesToRepeat
+                , bool showImages)
 {
     QProgressDialog trainProgress("", "It's not Cancel", 0, 100);
     trainProgress.setValue(0);
@@ -60,6 +61,7 @@ void Net::Train(const QList<DataSample> & trainData, int cyclesToRepeat)
             SetInput(trainData[choice]);
             Step(true, trainData[choice].type);
 
+
             if(!silentMode)
             {
                 trainProgress.setValue(100 * n / trainData.size());
@@ -71,6 +73,13 @@ void Net::Train(const QList<DataSample> & trainData, int cyclesToRepeat)
         {
             overallBar.setValue(100 * (c + 1) / cyclesToRepeat);
             QApplication::processEvents();
+
+
+            if(showImages)
+            {
+                FormSensorImages();
+                emit SIGNAL_ShowImages();
+            }
         }
         else
             emit TrainProgress(100 * (c + 1) / cyclesToRepeat);

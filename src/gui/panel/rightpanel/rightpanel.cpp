@@ -7,6 +7,9 @@ RightPanel::RightPanel(QWidget *parent) :
 {
     ui->setupUi(this);
     createConnects();
+
+    ui->pBGenerateImage->setEnabled(false);
+    ui->pBShowImages->setEnabled(false);
 }
 //------------------------------------------------------------------------------
 RightPanel::~RightPanel()
@@ -16,7 +19,15 @@ RightPanel::~RightPanel()
 //------------------------------------------------------------------------------
 void RightPanel::createConnects()
 {
-    connect(ui->pBNextImage, SIGNAL(clicked()), SIGNAL(SIGNAL_GetNextImage()));
+    connect(ui->pBGenerateImage, SIGNAL(clicked()), SIGNAL(SIGNAL_GenerateImages()));
+    connect(ui->pBRunNet, SIGNAL(clicked()), SLOT(runNet()));
+    connect(ui->pBShowImages, SIGNAL(clicked()), SIGNAL(SIGNAL_ShowImages()));
 }
 //------------------------------------------------------------------------------
+void RightPanel::runNet()
+{
+    ui->pBGenerateImage->setEnabled(true);
+    ui->pBShowImages->setEnabled(true);
+    emit SIGNAL_RunNet(ui->spinBox->value());
+}
 //------------------------------------------------------------------------------

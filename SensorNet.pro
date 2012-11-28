@@ -45,7 +45,8 @@ HEADERS += src/common/Random.h \
            src/options/Options.h \
            src/gui/panel/rightpanel/rightpanel.h \
            src/gui/canvas/canvas.h \
-           src/genom/GenomOperator.h
+           src/genom/GenomOperator.h \
+           src/common/filecommon.h
 
 FORMS += src/main/MainWindow.ui \
     src/gui/panel/rightpanel/rightpanel.ui \
@@ -62,6 +63,7 @@ SOURCES += src/common/Random.cpp \
            src/main/MainWindow.cpp \
            src/gui/panel/rightpanel/rightpanel.cpp \
            src/gui/canvas/canvas.cpp \
-           src/genom/GenomOperator.cpp
+           src/genom/GenomOperator.cpp \
+           src/common/filecommon.cpp
 
 RESOURCES += resources/resources.qrc
