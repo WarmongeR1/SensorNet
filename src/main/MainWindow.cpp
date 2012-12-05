@@ -13,7 +13,7 @@ SensorNet::SensorNet(QWidget *parent, Qt::WFlags flags)
 
 
     //    ImageDataCreator imageDataCreator;
-    imageDataCreator.CreateImageData("traindata");
+//    imageDataCreator.CreateImageData("traindata");
 
     NetParamsInitializer params;
     params.ActivePermanence = 0.4;
@@ -109,7 +109,7 @@ void SensorNet::runNet(int m_for)
 
 
     //    ImageDataCreator imageDataCreator;
-    imageDataCreator.CreateImageData("traindata");
+    imageDataCreator.CreateImageData(GUI_RightPanel->getTrainFolder());
 
     NetParamsInitializer params;
     params.ActivePermanence = 0.4;

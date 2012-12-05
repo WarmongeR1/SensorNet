@@ -1,8 +1,8 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-const int FIELD_X = 32;
-const int FIELD_Y = 32;
+const int FIELD_X = 28;
+const int FIELD_Y = 28;
 
 const int SENSOR_N = 50;
 

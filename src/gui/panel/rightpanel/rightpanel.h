@@ -18,6 +18,8 @@ public:
 
     void setResult();
 
+    QString getTrainFolder();
+
 signals:
 //    void SIGNAL_GetNextImage();
     void SIGNAL_ShowImages();
@@ -31,6 +33,7 @@ private slots:
     void testRun();
 
     void browseTestDir();
+    void browseTrainDir();
 private:
     Ui::RightPanel *ui;
 
@@ -38,6 +41,8 @@ private:
      * @brief createConnects
      */
     void createConnects();
+
+    QString trainFolder;
 };
 
 #endif // RIGHTPANEL_H

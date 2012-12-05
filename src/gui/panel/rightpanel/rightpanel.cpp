@@ -17,6 +17,9 @@ RightPanel::RightPanel(QWidget *parent) :
 
     //
     ui->LETestDir->setText("/home/files/Develop/git/HTM/SensorNet-build/build/bin/testdata");
+
+    trainFolder = "/home/files/Develop/git/HTM/SensorNet-build/build/bin/traindata";
+    ui->LETrainFolder->setText(trainFolder);
 }
 //------------------------------------------------------------------------------
 RightPanel::~RightPanel()
@@ -30,6 +33,7 @@ void RightPanel::createConnects()
     connect(ui->pBRunNet, SIGNAL(clicked()), SLOT(runNet()));
     connect(ui->pBShowImages, SIGNAL(clicked()), SIGNAL(SIGNAL_ShowImages()));
     connect(ui->pBBrowseTestData, SIGNAL(clicked()), SLOT(browseTestDir()));
+    connect(ui->pBBrowseTrain, SIGNAL(clicked()), SLOT(browseTrainDir()));
     connect(ui->pBTestRun, SIGNAL(clicked()), SLOT(testRun()));
 }
 //------------------------------------------------------------------------------
@@ -51,6 +55,20 @@ void RightPanel::browseTestDir()
         ui->LETestDir->setText(directory);
 }
 //------------------------------------------------------------------------------
+void RightPanel::browseTrainDir()
+{
+    QFileDialog::Options options = QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly;
+    QString directory = QFileDialog::getExistingDirectory(this
+                                                          , tr("Select input folder")
+                                                          , ""
+                                                          , options);
+    if (!directory.isEmpty())
+    {
+        ui->LETrainFolder->setText(directory);
+        trainFolder = directory;
+    }
+}
+//------------------------------------------------------------------------------
 void RightPanel::testRun()
 {
     emit SIGNAL_TestRun(ui->LETestDir->text());
@@ -62,5 +80,10 @@ void RightPanel::setResult()
 //    QString text;
 //    text = getResult();
     ui->textBrResult->setPlainText(getResult());
+}
+//------------------------------------------------------------------------------
+QString RightPanel::getTrainFolder()
+{
+    return trainFolder;
 }
 //------------------------------------------------------------------------------
