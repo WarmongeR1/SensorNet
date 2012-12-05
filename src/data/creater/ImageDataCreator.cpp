@@ -33,31 +33,31 @@ void ImageDataCreator::CreateImageData(QString dataDirName)
 
         data << sample;
 
-        //if(trainData)
-        //{
-        //            for(uint s = 0; s < SACCADE_N - 1; s++)
-        //            {
-        //                DataSample saccadeSample;
+//        if(trainData)
+//        {
+//            for(uint s = 0; s < SACCADE_N - 1; s++)
+//            {
+//                DataSample saccadeSample;
 
-        //                int sx, sy;
-        //                do
-        //                {
-        //                    sx = Random::Range(- SACCADE_X_SHIFT, SACCADE_X_SHIFT);
-        //                    sy = Random::Range(- SACCADE_Y_SHIFT, SACCADE_Y_SHIFT);
-        //                }
-        //                while(sx == 0 && sy == 0);
+//                int sx, sy;
+//                do
+//                {
+//                    sx = Random::Range(- SACCADE_X_SHIFT, SACCADE_X_SHIFT);
+//                    sy = Random::Range(- SACCADE_Y_SHIFT, SACCADE_Y_SHIFT);
+//                }
+//                while(sx == 0 && sy == 0);
 
-        //                for(uint i = 0; i < FIELD_Y; i++)
-        //                    for(uint j = 0; j < FIELD_X; j++)
-        //                    {
-        //                        saccadeSample.data[i][j] = sample.data[(i + sy + FIELD_Y) % FIELD_Y][(j + sx + FIELD_X) % FIELD_X];
-        //                    }
+//                for(uint i = 0; i < FIELD_Y; i++)
+//                    for(uint j = 0; j < FIELD_X; j++)
+//                    {
+//                        saccadeSample.data[i][j] = sample.data[(i + sy + FIELD_Y) % FIELD_Y][(j + sx + FIELD_X) % FIELD_X];
+//                    }
 
-        //                saccadeSample.type = sample.type;
+//                saccadeSample.type = sample.type;
 
-        //                data << saccadeSample;
-        //            }
-        //}
+//                data << saccadeSample;
+//            }
+//        }
     }
 }
 

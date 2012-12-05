@@ -58,12 +58,12 @@ void Canvas::showImages()
     QString t_path = dir.currentPath() + "/netinternals/";
     QStringList m_listFiles = recursiveFind(t_path);
 
-    int colCount = 5;
+    int colCount = 800 / 64;
 
     int col = 0;
     int row = 0;
 
-    QImage canvas(400, 600,  QImage::Format_RGB32);
+    QImage canvas(800, 600,  QImage::Format_RGB32);
     canvas.fill(qRgb(255, 255, 255));
 
     QPainter painter(&canvas);

@@ -25,6 +25,8 @@ private slots:
     void generateImages();
     void runNet(int);
 
+    void testRun(QString);
+
 private:
     Ui::SensorNetClass ui;
 

@@ -16,14 +16,21 @@ public:
     explicit RightPanel(QWidget *parent = 0);
     ~RightPanel();
 
+    void setResult();
+
 signals:
 //    void SIGNAL_GetNextImage();
     void SIGNAL_ShowImages();
     void SIGNAL_RunNet(int);
     void SIGNAL_GenerateImages();
+    void SIGNAL_TestRun(QString);
 
 private slots:
     void runNet();
+
+    void testRun();
+
+    void browseTestDir();
 private:
     Ui::RightPanel *ui;
 
